@@ -55,12 +55,8 @@ It's recommended that you've gone through the [hardhat getting started documenta
 - [Nodejs](https://nodejs.org/en/)
   - You'll know you've installed nodejs right if you can run:
     - `node --version`and get an output like: `vx.x.x`
-- [Yarn](https://classic.yarnpkg.com/lang/en/docs/install/) instead of `npm`
-  - You'll know you've installed yarn right if you can run:
-    - `yarn --version` And get an output like: `x.x.x`
-    - You might need to install it with npm
 
-> If you're familiar with `npx` and `npm` instead of `yarn`, you can use `npx` for execution and `npm` for installing dependencies. 
+> We are using the familiar `npx` for execution and `npm` for installing dependencies. 
 
 ## Quickstart
 
@@ -72,26 +68,17 @@ After installing all the requirements, run the following:
 git clone https://github.com/smartcontractkit/hardhat-starter-kit/
 cd hardhat-starter-kit
 ```
-Then:
-```
-yarn
-```
 
-or
+Then:
+
 ```
-npm i
+npm install @nomiclabs/hardhat-ethers@npm:hardhat-deploy-ethers@^0.3.0-beta.13 ethers
 ```
 
 2. You can now do stuff!
 
 ```
-yarn hardhat test
-```
-
-or
-
-```
-npm test
+npx hardhat test
 ```
 
 ### Typescript
@@ -100,17 +87,17 @@ To use typescript, run:
 
 ```
 git checkout typescript
-yarn
+npm install @nomiclabs/hardhat-ethers@npm:hardhat-deploy-ethers@^0.3.0-beta.13 ethers
 ```
 
 # Usage
 
-If you run `yarn hardhat --help` you'll get an output of all the tasks you can run. 
+If you run `npx hardhat --help` you'll get an output of all the tasks you can run. 
 
 ## Deploying Contracts
 
 ```
-yarn hardhat deploy
+npx hardhat deploy
 ```
 
 This will deploy your contracts to a local network. Additionally, if on a local network, it will deploy mock Chainlink contracts for you to interact with. If you'd like to interact with your deployed contracts, skip down to [Interacting with Deployed Contracts](#interacting-with-deployed-contracts).
@@ -120,7 +107,7 @@ This will deploy your contracts to a local network. Additionally, if on a local 
 One of the best ways to test and interact with smart contracts is with a local network. To run a local network with all your contracts in it, run the following:
 
 ```
-yarn hardhat node
+npx hardhat node
 ```
 
 You'll get a local blockchain, private keys, contracts deployed (from the `deploy` folder scripts), and an endpoint to potentially add to an EVM wallet. 
@@ -195,12 +182,12 @@ You should now be all setup! You can run any command and just pass the `--networ
 To deploy contracts:
 
 ```
-yarn hardhat deploy --network goerli
+npx hardhat deploy --network goerli
 ```
 
 To run staging testnet tests
 ```
-yarn hardhat test --network goerli
+npx hardhat test --network goerli
 ```
 
 ## Forking 
@@ -235,23 +222,13 @@ Tests are located in the [test](./test/) directory, and are split between unit t
 To run unit tests:
 
 ```bash
-yarn test
-```
-or
-```
-yarn hardhat test
+npx hardhat test
 ```
 
 To run staging tests on Goerli network:
 
 ```bash
-yarn test-staging
-```
-
-or
-
-```
-yarn hardhat test --network goerli
+npx hardhat test --network goerli
 ```
 
 ## Performance optimizations
@@ -260,11 +237,7 @@ Since all tests are written in a way to be independent from each other, you can 
 
 To run tests in parallel:
 ```
-yarn test --parallel
-```
-or
-```
-yarn hardhat test --parallel
+npx hardhat test --parallel
 ```
 
 # Interacting with Deployed Contracts
@@ -276,25 +249,25 @@ After deploying your contracts, the deployment output will give you the contract
 The Price Feeds consumer contract has one task, to read the latest price of a specified price feed contract
 
 ```bash
-yarn hardhat read-price-feed --contract insert-contract-address-here --network network
+npx hardhat read-price-feed --contract insert-contract-address-here --network network
 ```
 
 ## Request & Receive Data
 The APIConsumer contract has two tasks, one to request external data based on a set of parameters, and one to check to see what the result of the data request is. This contract needs to be funded with link first:
 
 ```bash
-yarn hardhat fund-link --contract insert-contract-address-here --network network
+npx hardhat fund-link --contract insert-contract-address-here --network network
 ```
 
 Once it's funded, you can request external data by passing in a number of parameters to the request-data task. The contract parameter is mandatory, the rest are optional
 
 ```bash
-yarn hardhat request-data --contract insert-contract-address-here --network network
+npx hardhat request-data --contract insert-contract-address-here --network network
 ```
 
 Once you have successfully made a request for external data, you can see the result via the read-data task
 ```bash
-yarn hardhat read-data --contract insert-contract-address-here --network network
+npx hardhat read-data --contract insert-contract-address-here --network network
 ```
 
 
@@ -308,19 +281,19 @@ VRF_SUBSCRIPTION_ID=subscription_id
 Then, deploy your VRF V2 contract consumer to the network of your recent subscription using subscription id as constructor argument.
 
 ```bash
-yarn hardhat deploy --network network   
+npx hardhat deploy --network network   
 ```
 
 Finally, you need to go to your subscription page one more time and add the address of deployed contract as a new consumer. Once that's done, you can perform a VRF request with the request-random-number task:
 
 ```bash
-yarn hardhat request-random-number --contract insert-contract-address-here --network network
+npx hardhat request-random-number --contract insert-contract-address-here --network network
 ```
 
 Once you have successfully made a request for a random number, you can see the result via the read-random-number task:
 
 ```bash
-yarn hardhat read-random-number --contract insert-contract-address-here --network network
+npx hardhat read-random-number --contract insert-contract-address-here --network network
 ```
 
 ## Keepers
@@ -328,7 +301,7 @@ The KeepersCounter contract is a simple Chainlink Keepers enabled contract that 
 
 
 ```bash
-yarn hardhat read-keepers-counter --contract insert-contract-address-here --network network
+npx hardhat read-keepers-counter --contract insert-contract-address-here --network network
 ```
 
 ## Verify on Etherscan
@@ -336,18 +309,18 @@ yarn hardhat read-keepers-counter --contract insert-contract-address-here --netw
 You'll need an `ETHERSCAN_API_KEY` environment variable. You can get one from the [Etherscan API site.](https://etherscan.io/apis). If you have it set, your deploy script will try to verify them by default, but if you want to verify any manually, you can run: 
 
 ```
-yarn hardhat verify --network <NETWORK> <CONTRACT_ADDRESS> <CONSTRUCTOR_PARAMETERS>
+npx hardhat verify --network <NETWORK> <CONTRACT_ADDRESS> <CONSTRUCTOR_PARAMETERS>
 ```
 example:
 
 ```
-yarn hardhat verify --network goerli 0x9279791897f112a41FfDa267ff7DbBC46b96c296 "0x9326BFA02ADD2366b30bacB125260Af641031331"
+npx hardhat verify --network goerli 0x9279791897f112a41FfDa267ff7DbBC46b96c296 "0x9326BFA02ADD2366b30bacB125260Af641031331"
 ```
 
 # View Contracts Size
 
 ```
-yarn run hardhat size-contracts
+npx hardhat size-contracts
 ```
 
 # Linting
@@ -355,7 +328,7 @@ yarn run hardhat size-contracts
 This will [lint](https://stackoverflow.com/questions/8503559/what-is-linting) your smart contracts.  
 
 ```
-yarn lint:fix
+npx solhint 'contracts/*.sol' --fix
 ```
 
 # Code Formatting
@@ -363,7 +336,7 @@ yarn lint:fix
 This will format both your javascript and solidity to look nicer. 
 
 ```
-yarn format
+npx prettier --write .
 ```
 
 # Estimating Gas
@@ -371,7 +344,7 @@ yarn format
 To estimate gas, just set a `REPORT_GAS` environment variable to true, and then run:
 
 ```
-yarn hardhat test
+npx hardhat test
 ```
 
 If you'd like to see the gas prices in USD or other currency, add a `COINMARKETCAP_API_KEY` from [Coinmarketcap](https://coinmarketcap.com/api/documentation/v1/).
@@ -380,7 +353,7 @@ If you'd like to see the gas prices in USD or other currency, add a `COINMARKETC
 
 To see a measure in percent of the degree to which the smart contract source code is executed when a particular test suite is run, type
 ```
-yarn coverage
+npx hardhat coverage
 ```
 
 # Fuzzing
@@ -390,7 +363,7 @@ We are going to use Echidna as a Fuzz testing tool. You need to have [Docker](ht
 To start Echidna instance run
 
 ```
-yarn fuzzing
+docker run -it --rm -v $PWD:/src trailofbits/eth-security-toolbox
 ```
 
 If you are using it for the first time, you will need to wait for Docker to download [eth-security-toolbox](https://hub.docker.com/r/trailofbits/eth-security-toolbox) image for us.
