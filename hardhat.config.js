@@ -72,7 +72,7 @@ module.exports = {
     },
   },
   etherscan: {
-    // yarn hardhat verify --network <NETWORK> <CONTRACT_ADDRESS> <CONSTRUCTOR_PARAMETERS>
+    // npx hardhat verify --network <NETWORK> <CONTRACT_ADDRESS> <CONSTRUCTOR_PARAMETERS>
     apiKey: {
       polygon: POLYGONSCAN_API_KEY,
       goerli: ETHERSCAN_API_KEY
